@@ -95,6 +95,10 @@ All data is stored in memory during runtime using:
 - HashSet<Integer> inside each student for issued book IDs  
 
 
+## Web Interface (Optional Extension)
+A simple web version of the Library Management System is included under the folder LMS-Web.
+It demonstrates the same functionalities (add, issue, return) implemented using HTML, CSS, and JavaScript.
+
 
 ## Concepts Used
 
