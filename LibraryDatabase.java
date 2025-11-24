@@ -49,6 +49,7 @@ public class LibraryDatabase {
         if (b == null) return "Book not found.";
         if (!b.isAvailable()) return "Book is currently out of stock.";
         if (s.hasIssued(bookId)) return "Student has already issued this book.";
+        
         b.decrementQuantity();
         s.issueBook(bookId);
         return "Book issued successfully.";
@@ -61,8 +62,30 @@ public class LibraryDatabase {
         Book b = getBook(bookId);
         if (b == null) return "Book not found in database.";
         if (!s.hasIssued(bookId)) return "This book was not issued to the student.";
+        
         s.returnBook(bookId);
         b.incrementQuantity();
         return "Book returned successfully.";
+    }
+
+    // 🔍 SEARCH FEATURE (NEW)
+    public String searchBooks(String keyword) {
+        keyword = keyword.toLowerCase();
+        StringBuilder result = new StringBuilder();
+
+        for (Book b : books.values()) {
+            if (b.getTitle().toLowerCase().contains(keyword) ||
+                b.getAuthor().toLowerCase().contains(keyword) ||
+                String.valueOf(b.getBookId()).contains(keyword)) {
+
+                result.append(b.toString()).append("\n");
+            }
+        }
+
+        if (result.length() == 0) {
+            return "No matching books found.";
+        }
+
+        return result.toString();
     }
 }

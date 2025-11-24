@@ -17,7 +17,8 @@ public class LibrarySystem {
                 case 4 -> returnBookFlow();
                 case 5 -> viewBooksFlow();
                 case 6 -> viewStudentsFlow();
-                case 7 -> {
+                case 7 -> searchBookFlow();       // 🔍 New
+                case 8 -> {
                     System.out.println("Exiting. Goodbye.");
                     running = false;
                 }
@@ -36,7 +37,8 @@ public class LibrarySystem {
         System.out.println("4. Return Book");
         System.out.println("5. View Books");
         System.out.println("6. View Students");
-        System.out.println("7. Exit");
+        System.out.println("7. Search Book");   // 🔍 New
+        System.out.println("8. Exit");
     }
 
     private static void addBookFlow() {
@@ -46,10 +48,12 @@ public class LibrarySystem {
         String title = readNonEmptyString("Enter Title: ");
         String author = readNonEmptyString("Enter Author: ");
         int qty = readInt("Enter Quantity (>=0): ");
+        
         if (qty < 0) {
             System.out.println("Quantity cannot be negative.");
             return;
         }
+
         Book book = new Book(id, title, author, qty);
         boolean ok = db.addBook(book);
         System.out.println(ok ? "Book added successfully." : "Book ID already exists.");
@@ -60,6 +64,7 @@ public class LibrarySystem {
         scanner.nextLine();
         String sid = readNonEmptyString("Enter Student ID: ");
         String name = readNonEmptyString("Enter Name: ");
+        
         Student s = new Student(sid, name);
         boolean ok = db.addStudent(s);
         System.out.println(ok ? "Student registered successfully." : "Student ID already exists.");
@@ -85,7 +90,7 @@ public class LibrarySystem {
 
     private static void viewBooksFlow() {
         System.out.println("--- Books List ---");
-        db.getAllBooks().forEach(b -> System.out.println(b));
+        db.getAllBooks().forEach(System.out::println);
     }
 
     private static void viewStudentsFlow() {
@@ -98,6 +103,14 @@ public class LibrarySystem {
         });
     }
 
+    // 🔍 SEARCH FEATURE FLOW (NEW)
+    private static void searchBookFlow() {
+        scanner.nextLine();
+        String keyword = readNonEmptyString("Enter title/author/book ID to search: ");
+        String result = db.searchBooks(keyword);
+        System.out.println(result);
+    }
+
     // Helper input methods
     private static int readInt(String prompt) {
         while (true) {
@@ -107,7 +120,7 @@ public class LibrarySystem {
                 return val;
             } catch (InputMismatchException e) {
                 System.out.println("Invalid integer. Try again.");
-                scanner.nextLine(); // clear
+                scanner.nextLine(); // clear buffer
             }
         }
     }
