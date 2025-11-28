@@ -1,52 +1,189 @@
-#	 Library Management System (Java)
+ Library Management System (Java + Web Version)
+
+A comprehensive, console-based and web-based Library Management System implemented in Java using Object-Oriented Programming (OOP) principles, and enhanced with a simple HTML/CSS/JavaScript web interface.
+This system automates core library functions such as managing books, registering students, issuing/returning books, validating records, and performing searches.
 
 
+---
 
-A simple, console-based Library Management System implemented in Java.  
+🔹 Features
 
-This project demonstrates object-oriented programming concepts, modular design,  
+🔸 Book Management
 
-and the use of Java Collections for in-memory data management.
-##  Features
+Add new books with ID, title, author, quantity
 
-- Add new books to the library
+View all available books
 
-- Register students
+Automatic quantity update on issue/return
 
-- Issue books (with validations)
+Availability checks
 
-- Return books
+🔸 Student Management
 
-- View all books
+Register students
 
-- View all registered students
+View student records
 
-- Input validation and meaningful error messages
+Track books issued to each student
+
+🔸 Transaction Handling
+
+Issue books with validations
+
+Return books with consistency checks
+
+Prevent duplicate issue
+
+Prevent returning unissued books
+
+🔸 Search Functionality
+
+Search by title, author, or book ID
+
+🔸 Web Interface (Frontend Simulation)
+
+A simple UI built using HTML, CSS, and JavaScript allowing:
+
+Add/Issue/Return books
+
+Register students
+
+View records in real time
 
 
+---
 
-##	 Project Structure
+Project Structure
 
-LibraryLMS/ 
-├── Book.java                # Book entity class
-├── Student.java             # Student entity class 
-├── LibraryDatabase.java     # Core logic: add/issue/return/get records 
-├── LibrarySystem.java       # Menu-based CLI (main file) 
-└── README.md
+LibraryLMS/
+│
+├── Book.java                  # Book entity class
+├── Student.java               # Student entity class
+├── LibraryDatabase.java       # Core logic: add, issue, return, search
+├── LibrarySystem.java         # Console-based UI (Main file)
+│
+├── LMS-Web/                   # Web version of the LMS
+│     ├── index.html
+│     ├── style.css
+│     └── script.js
+│
+├── Screenshots/               # Optional screenshots
+│
+├── Project_Report.pdf         # Detailed project documentation
+└── README.md                  # Technical documentation (this file)
 
-## 🛠 Requirements
 
-- Java 8 or later
+---
 
-- Command line / terminal
+Technologies Used
+
+Backend (Console-Based Version)
+
+Java
+
+OOP Concepts
+
+Java Collections (HashMap, HashSet)
+
+Exception Handling
+
+Modular Design
+
+Frontend (Web Version)
+
+HTML
+
+CSS
+
+JavaScript
 
 
+---
 
-## How to Compile and Run
+System Architecture
+
+The LMS follows a three-tier modular architecture, ensuring clarity and scalability.
+
++--------------------------+
+|   LibrarySystem.java     |
+|   (Console UI Layer)     |
++------------+-------------+
+|
+v
++--------------------------+
+|   LibraryDatabase.java   |
+|  (Business Logic Layer)  |
++------------+-------------+
+|
++------------+-------------+
+|                          |
+v                          v
++-------------------+       +--------------------+
+|     Book.java     |       |   Student.java     |
+|   (Data Model)    |       |    (Data Model)    |
++-------------------+       +--------------------+
+
+Web Architecture
+
+HTML Form Inputs  --->  JavaScript Logic  --->  Updated Records (JSON)
+|                          |
++--------------------------+
+Rendered on Webpage
 
 
+---
 
-1. Open terminal inside the LibraryLMS/ folder  
+Implementation Overview
+
+Book.java
+
+Stores book details
+
+Handles availability
+
+Updates quantity
+
+Student.java
+
+Stores student details
+
+Tracks issued books
+
+Prevents duplicates
+
+LibraryDatabase.java
+
+Adds / retrieves books & students
+
+Issues / returns books
+
+Maintains data integrity
+
+Implements search feature
+
+LibrarySystem.java
+
+Displays menu
+
+Handles input
+
+Connects UI → Logic Layer
+
+Web Version (LMS-Web/)
+
+Uses in-browser JavaScript objects to simulate book & student storage
+
+Provides visual, interactive interface
+
+Supports add/issue/return actions
+
+
+---
+
+How to Run (Java Version)
+
+1. Open terminal inside the project folder
+
 
 2. Compile all Java files:
 
@@ -54,78 +191,104 @@ LibraryLMS/
 
 javac *.java
 
-
-
-3. Run the program:
+3. Run the main program:
 
 
 
 java LibrarySystem
 
 
+---
 
-##	How It Works
+How to Run the Web Version
 
-The application runs in a loop using a menu-driven interface:
-
-
-
-1. Add Book  
-
-2. Register Student  
-
-3. Issue Book  
-
-4. Return Book  
-
-5. View Books  
-
-6. View Students  
-
-7. Exit  
+1. Open the folder:
 
 
 
-All data is stored in memory during runtime using:
+LMS-Web/
 
-- HashMap<Integer, Book> for books  
-
-- HashMap<String, Student> for students  
-
-- HashSet<Integer> inside each student for issued book IDs  
-
-
-## Web Interface (Optional Extension)
-A simple web version of the Library Management System is included under the folder LMS-Web.
-It demonstrates the same functionalities (add, issue, return) implemented using HTML, CSS, and JavaScript.
-
-
-## Concepts Used
-
-- Object-Oriented Programming (OOP)
-
-- Encapsulation
-
-- Modular design
-
-- Java Collections Framework
-
-- Input validation
+2. Double-click:
 
 
 
-##	 Project Report
+index.html
 
-The full project report (converted to Java-based implementation) is included  
-
-as Project_Report.pdf in this repository.
+3. The UI will open in your browser — no server required.
 
 
 
-##	Author
+
+---
+
+Sample Operations (Console Version)
+
+Add Book → Enter ID, Title, Author, Qty
+
+Register Student → Enter ID, Name
+
+Issue Book → Enter Student ID & Book ID
+
+View Records → Displays all stored data
+
+
+---
+
+Approach & Design Decisions
+
+Clean OOP modeling of real-world entities
+
+Java Collections for fast lookups
+
+Separation of UI, logic, and data
+
+Input validation for safe operations
+
+Extendable architecture (supports GUI or DB in the future)
+
+Additional web version for demonstration
+
+
+---
+
+Testing Summary
+
+Unit tests for Book/Student/Database operations
+
+Integration tests for issue/return flows
+
+Edge case testing:
+
+Duplicate entries
+
+Unavailable books
+
+Invalid IDs
+
+Returning unissued books
+
+
+---
+
+Future Enhancements
+
+Database integration (MySQL/SQLite)
+
+GUI (JavaFX or Swing)
+
+Notifications / Fine calculation
+
+Multi-user roles (Student, Admin, Librarian)
+
+Analytics dashboard
+
+Cloud or online access
+
+
+---
+
+Author
 
 Aayushi Narang (24BSA10240)
-
-VIT Bhopal University  
-
-Academic Submission – 2025
+VIT Bhopal University
+School of Computing Science & Engineering
